@@ -40,7 +40,7 @@ class HeadHunter(ABCEngine):
         item_dict['name'] = item['name']
         item_dict['salary_from'] = set_correct_salary_from(item['salary'])
         item_dict['salary_to'] = set_correct_salary_to(item['salary'])
-        item_dict['emlployer_id'] = item['employer']['id']
+        item_dict['employer_id'] = item['employer']['id']
         item_dict['url'] = item['alternate_url']
         item_dict['currency'] = set_correct_currency(item['salary'])
         item_dict['requirement'] = item['snippet']['requirement']

@@ -3,6 +3,7 @@ from Classes.DB_Saver import DB_Saver
 from Classes.DB_Manager import DB_Manager
 import sys
 
+
 employers_id = ['2492', '5974128', '586', '590', '599', '533', '490', '399', '330', '272', '229', '211', '139', '89',
               '80', '65', '59']
 def get_employers_info():
