@@ -1,13 +1,8 @@
-import psycopg2
+from Connect_DB import Connect_db
 
 class DB_Manager():
-
     def get_companies_and_vacancies_count(self):
-        connection = psycopg2.connect(host="localhost",
-                                      port="5432",
-                                      dbname="course_work_5",
-                                      user="postgres",
-                                      password="0606")
+        connection, cur = Connect_db.connect_to_db()
         with connection:
             with connection.cursor() as cur:
                 cur.execute("select e.name, count(*) from vacancy v "
@@ -17,12 +12,9 @@ class DB_Manager():
         connection.close()
         return info
 
+
     def get_all_vacancies(self):
-        connection = psycopg2.connect(host="localhost",
-                                      port="5432",
-                                      dbname="course_work_5",
-                                      user="postgres",
-                                      password="0606")
+        connection, cur = Connect_db.connect_to_db()
         with connection:
             with connection.cursor() as cur:
                 cur.execute("select e.name, v.name, salary_from, salary_to, currency, v.url  from vacancy v "
@@ -33,11 +25,7 @@ class DB_Manager():
         return info
 
     def get_avg_salary(self):
-        connection = psycopg2.connect(host="localhost",
-                                      port="5432",
-                                      dbname="course_work_5",
-                                      user="postgres",
-                                      password="0606")
+        connection, cur = Connect_db.connect_to_db()
         with connection:
             with connection.cursor() as cur:
                 cur.execute("select round(avg(salary_from)) as salary_from, round(avg(salary_to)) as salary_to from vacancy v ")
@@ -46,11 +34,7 @@ class DB_Manager():
         return info
 
     def get_vacancies_with_higher_salary(self):
-        connection = psycopg2.connect(host="localhost",
-                                      port="5432",
-                                      dbname="course_work_5",
-                                      user="postgres",
-                                      password="0606")
+        connection, cur = Connect_db.connect_to_db()
         with connection:
             with connection.cursor() as cur:
                 cur.execute(
@@ -62,11 +46,7 @@ class DB_Manager():
         return info
 
     def get_vacancies_with_keyword(self, keyword):
-        connection = psycopg2.connect(host="localhost",
-                                      port="5432",
-                                      dbname="course_work_5",
-                                      user="postgres",
-                                      password="0606")
+        connection, cur = Connect_db.connect_to_db()
         with connection:
             with connection.cursor() as cur:
                 cur.execute(

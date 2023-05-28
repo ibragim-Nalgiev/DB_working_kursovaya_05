@@ -1,34 +1,11 @@
-import psycopg2
-import configparser
+from Connect_DB import Connect_db
 
 
 class DB_Saver():
-    """Отвечает за сохранение и удаление данных в БД"""
-
-    def connect_to_db(self, config_file="config.ini"):
-        """Функция для установления соединения с БД"""
-        config = configparser.ConfigParser()
-        config.read(config_file)
-        host = config['postgresql']['host']
-        port = config['postgresql']['port']
-        database = config['postgresql']['database']
-        user = config['postgresql']['user']
-        password = config['postgresql']['password']
-
-        conn = psycopg2.connect(
-            host=host,
-            port=port,
-            dbname=database,
-            user=user,
-            password=password
-        )
-        cur = conn.cursor()
-
-        return conn, cur
 
     def write_employers(self, data: list):
         """Записывает данные в таблицу employers"""
-        connection, cur = self.connect_to_db()
+        connection, cur = Connect_db.connect_to_db()
         with connection:
             with connection.cursor() as cur:
                 print('Начинаем вставку')
@@ -39,7 +16,7 @@ class DB_Saver():
 
     def write_vacancies(self, data: list):
         """Записывает данные в таблицу vacancy"""
-        connection, cur = self.connect_to_db()
+        connection, cur = Connect_db.connect_to_db()
         with connection:
             with connection.cursor() as cur:
                 print('Начинаем вставку')
@@ -50,7 +27,7 @@ class DB_Saver():
 
     def delete_employers(self):
         """Удаляет данные из таблицы employers"""
-        connection, cur = self.connect_to_db()
+        connection, cur = Connect_db.connect_to_db()
         with connection:
             with connection.cursor() as cur:
                 print('Начинаем удаление')
@@ -61,7 +38,7 @@ class DB_Saver():
 
     def delete_vacancy(self):
         """Удаляет данные из таблицы vacancy"""
-        connection, cur = self.connect_to_db()
+        connection, cur = Connect_db.connect_to_db()
         with connection:
             with connection.cursor() as cur:
                 print('Начинаем удаление')
@@ -72,7 +49,7 @@ class DB_Saver():
 
     def delete_all(self):
         """Удаляет данные из таблиц employers и vacancy"""
-        connection, cur = self.connect_to_db()
+        connection, cur = Connect_db.connect_to_db()
         with connection:
             with connection.cursor() as cur:
                 print('Начинаем удаление')
@@ -84,10 +61,14 @@ class DB_Saver():
 
     def read(self):
         """Чтение данных. Используется для тестов"""
-        connection, cur = self.connect_to_db()
+        connection, cur = Connect_db.connect_to_db()
         with connection:
             with connection.cursor() as cur:
                 cur.execute("select * from employers")
                 vac_info = cur.fetchone()
                 print(vac_info)
         connection.close()
+
+
+
+
